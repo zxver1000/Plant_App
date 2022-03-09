@@ -12,11 +12,14 @@ class Main2 extends StatefulWidget {
 
 class _Main2State extends State<Main2> {
 
-  var name='gdr';
+  var name='';
   /*디비데이터 꺼내기*/
   getData() async{
    var result=await firestore.collection('product1').get();
-   name=result.docs[0]['name'];
+   setState(() {
+     name=result.docs[0]['name'];
+   });
+
    for(var name in result.docs){
      print(name['name']);
    }
@@ -28,8 +31,9 @@ class _Main2State extends State<Main2> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     getData();
+    super.initState();
+
   }
   @override
   Widget build(BuildContext context) {
