@@ -12,7 +12,7 @@ class Main2 extends StatefulWidget {
 
 class _Main2State extends State<Main2> {
 
-  var name='gd';
+  var name='gdr';
   /*디비데이터 꺼내기*/
   getData() async{
    var result=await firestore.collection('product1').get();
