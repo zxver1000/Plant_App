@@ -4,6 +4,7 @@ import 'firebase_options.dart';
 import 'main2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'chat.dart';
+import 'package:hci/Notice_board.dart';
 final firestore = FirebaseFirestore.instance;
 
 void main() async{
@@ -36,12 +37,12 @@ class _MyAppState extends State<MyApp> {
         },icon: Icon(Icons.send))
       ],),
 
-      body: [Text('home'),Text('레시피'),Main2(),Text('게시판')][tab],
+      body: [Text('home'),Text('레시피'),Main2(),board()][tab],
         bottomNavigationBar: BottomNavigationBar(
           type:BottomNavigationBarType.fixed,
             selectedItemColor: Colors.white,
           unselectedItemColor: Colors.white.withOpacity(.30),
-        currentIndex: tab,
+          currentIndex: tab,
           backgroundColor: Colors.grey,
 
           onTap: (i){
