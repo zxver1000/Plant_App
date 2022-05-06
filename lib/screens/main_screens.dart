@@ -7,7 +7,7 @@ import 'package:plant_app/screens/search/search_screen.dart';
 import 'package:plant_app/models/nav_item.dart';
 import 'package:plant_app/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:plant_app/Notice_board.dart';
 
 class MainScreens extends StatefulWidget {
   static String routeName = "/main_screens";
@@ -30,7 +30,7 @@ class _MainScreensState extends State<MainScreens> {
           HomeScreen(),
           RecommendScreen(),
           CategoryScreen(),
-          SearchScreen(),
+          board(),
 
         ],
       ),

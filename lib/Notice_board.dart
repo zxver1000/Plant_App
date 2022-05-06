@@ -44,8 +44,15 @@ addData(var name,var title,var content,var num1,var image)
   @override
   Widget build(BuildContext context) {
 
+  var board_name=["유저게시판","자유게시판"];
+  
     final myController=TextEditingController();
     return Scaffold(
+      appBar:AppBar(
+        title: Text("게시판"),
+    automaticallyImplyLeading: false,
+    actions: [],
+    ),
    floatingActionButton: FloatingActionButton(
      child: Text('+'),
      onPressed:(){
@@ -57,22 +64,58 @@ addData(var name,var title,var content,var num1,var image)
      },
    ),
 
-      body: dataset.isNotEmpty==true?ListView.builder(
-          itemCount: dataset.length,
-          itemBuilder: (context,i){
-            return ListTile(
-              leading: dataset[i].userImage!=null?Image.file(dataset[i].userImage):Text(""),
-              title:Text(dataset[i].title),
-              trailing: TextButton(
-                child: Text('좋아요'),
-                onPressed: (){
-                  setState(() {
-                    dataset[i].num++;
-                  });
-                },
+      body: CustomScrollView(
+          slivers:<Widget>[
+            SliverGrid(
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200.0,
+                mainAxisSpacing: 10.0,
+                crossAxisSpacing: 10,
+                childAspectRatio: 4,
               ),
-            );
-          }):Text(""),
+              // SliverChildBuiilderDelegate는 ListView.builder 처럼 리스트의 아이템을 생성해줌
+              delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                  // 5
+
+                  return Container(
+                    alignment: Alignment.center,
+                      color: Colors.teal[100 * (index+1 % 9)],
+                      child: Text(board_name[index]),
+
+                  );
+
+                },
+                // 6
+                childCount: 2,
+              ),),
+            SliverFixedExtentList(
+              itemExtent: 50.0,
+delegate: SliverChildBuilderDelegate((BuildContext context,int index){
+  return ListTile(
+    leading: dataset[index].userImage!=null?Image.file(dataset[index].userImage):Text(""),
+    title:Text(dataset[index].title),
+    onTap : ()=>{
+
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) {
+        return information(data:dataset[index]);
+      }))
+    },
+    trailing: TextButton(
+      child: Text('좋아요'),
+      onPressed: (){
+        setState(() {
+          dataset[index].num++;
+        });
+      },
+    ),
+  );
+},childCount: dataset.length),
+    )])
+
+
+
     );
 
   }
@@ -94,7 +137,7 @@ class _State extends State<writing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: TextButton(child: Text("←"),onPressed: (){
+      appBar: AppBar(title: TextButton(child: Text("게시글 올리기"),onPressed: (){
         Navigator.pop(context,false);
       },
       ),actions: [
@@ -112,7 +155,13 @@ class _State extends State<writing> {
           Navigator.pop(context,false);
         },icon: Icon(Icons.add))
       ],),
-      body:Column(
+      body:CustomScrollView(
+
+          slivers:<Widget>[
+
+
+            SliverToBoxAdapter(
+                child:Column(
         mainAxisAlignment: MainAxisAlignment.start,children: [
         Text("")
         ,
@@ -124,8 +173,9 @@ class _State extends State<writing> {
         ,TextField(controller: controllerContent,style: TextStyle(fontSize: 15),maxLines: 10,
         decoration: InputDecoration(border: InputBorder.none,hintText: "내용을 입력하세요!"),)
      ,
- userimage!=null?Image.file(userimage,width: 200,height: 100,):Text("")
-        ],),
+ userimage!=null?Image.file(userimage,width: 400,height: 400,):Text("")
+        ],))])
+      ,
       bottomNavigationBar:BottomAppBar(
 
        child: Row(
@@ -162,3 +212,37 @@ class _State extends State<writing> {
   }
 }
 
+class information extends StatefulWidget {
+  const information({Key? key,this.data}) : super(key: key);
+  final data;
+  @override
+  State<information> createState() => _informationState();
+}
+
+class _informationState extends State<information> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: TextButton(child: Text("게시판"),onPressed: (){
+
+    })
+        ),
+      body:CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child:Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+
+              children: [
+                Text("작성자 : "+widget.data.name),
+                Text(""),
+                Text(widget.data.title),
+                widget.data.userImage!=null?Image.file(widget.data.userImage,width: 400,height: 400,):Text("")
+              ],
+            ) ,)
+,
+        ],
+      ) ,
+    );
+  }
+}
