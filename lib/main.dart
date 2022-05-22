@@ -73,21 +73,25 @@ addData(var name,var title,var content,var num1,var image)
 
 
 void main() {
+
   runApp(
       MultiProvider(providers: [
         ChangeNotifierProvider(create: (c)=>boardData()),
         ChangeNotifierProvider(create: (c)=>recipeData())
       ],
-        child:  MarketKurly(),)
+        child:  PlantApp(),)
      );
+
+
+
 }
 
-class MarketKurly extends StatelessWidget {
+class PlantApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Market Kurly UI",
+      title: "Plant app UI",
       // (1)
       initialRoute: SplashScreen.routeName,
      // (2)

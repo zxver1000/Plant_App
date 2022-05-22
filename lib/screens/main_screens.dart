@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/category/category_screen.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
+import 'package:plant_app/screens/mypage/my_page_screen.dart';
 import 'package:plant_app/screens/recommend/recommend_screen.dart';
 import 'package:plant_app/screens/search/search_screen.dart';
 import 'package:plant_app/models/nav_item.dart';
@@ -31,7 +32,7 @@ class _MainScreensState extends State<MainScreens> {
           recipe(),
           CategoryScreen(),
           board(),
-
+          MyPageScreen()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -77,5 +78,7 @@ class _MainScreensState extends State<MainScreens> {
     );
   }
 }
+
+
 
 
