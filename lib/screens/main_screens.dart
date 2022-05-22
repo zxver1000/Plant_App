@@ -31,7 +31,7 @@ class _MainScreensState extends State<MainScreens> {
         children: [
           HomeScreen(),
           recipe(),
-          RecommendScreen(),
+
           CategoryScreen(),
           board(),
           MyPageScreen()
