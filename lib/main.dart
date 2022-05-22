@@ -73,7 +73,6 @@ addData(var name,var title,var content,var num1,var image)
 
 
 void main() {
-
   runApp(
       MultiProvider(providers: [
         ChangeNotifierProvider(create: (c)=>boardData()),
@@ -81,9 +80,6 @@ void main() {
       ],
         child:  PlantApp(),)
      );
-
-
-
 }
 
 class PlantApp extends StatelessWidget {
@@ -91,7 +87,7 @@ class PlantApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Plant app UI",
+      title: "plant app UI",
       // (1)
       initialRoute: SplashScreen.routeName,
      // (2)

@@ -10,6 +10,7 @@ import 'package:plant_app/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_app/Notice_board.dart';
 import 'package:plant_app/screens/recipe/recipe.dart';
+
 class MainScreens extends StatefulWidget {
   static String routeName = "/main_screens";
 
@@ -30,6 +31,7 @@ class _MainScreensState extends State<MainScreens> {
         children: [
           HomeScreen(),
           recipe(),
+          RecommendScreen(),
           CategoryScreen(),
           board(),
           MyPageScreen()
@@ -78,7 +80,6 @@ class _MainScreensState extends State<MainScreens> {
     );
   }
 }
-
 
 
 
