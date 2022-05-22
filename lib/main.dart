@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/screens/login/loin_page.dart';
 import 'package:plant_app/screens/main_screens.dart';
 import 'routes.dart';
-import 'screens/splash/splash_screen.dart';
+//import 'screens/splash/splash_screen.dart';
 import 'theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,17 +11,17 @@ import 'firebase_options.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
-  runApp(MarketKurly());
+  runApp(PlantApp());
 }
 
-class MarketKurly extends StatelessWidget {
+class PlantApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Market Kurly UI",
+      title: "Plant app UI",
       // (1)
-      initialRoute: SplashScreen.routeName,
+      // initialRoute: SplashScreen.routeName,
      // (2)
       routes: route,
       // (3)
