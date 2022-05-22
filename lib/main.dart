@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/screens/login/loin_page.dart';
+import 'package:plant_app/screens/main_screens.dart';
 import 'routes.dart';
-import 'screens/splash/splash_screen.dart';
+//import 'screens/splash/splash_screen.dart';
 import 'theme.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,6 +10,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:plant_app/screens/recipe/recipe_item.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'firebase_options.dart';
+
 class Data{
   var name;
   var title;
@@ -72,16 +78,19 @@ addData(var name,var title,var content,var num1,var image)
 }
 
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,);
+
   runApp(
       MultiProvider(providers: [
-        ChangeNotifierProvider(create: (c)=>boardData()),
-        ChangeNotifierProvider(create: (c)=>recipeData())
+        ChangeNotifierProvider(create: (c) => boardData()),
+        ChangeNotifierProvider(create: (c) => recipeData())
       ],
-        child:  PlantApp(),)
-     );
+        child: PlantApp(),)
+  );
 }
-
 class PlantApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -89,11 +98,20 @@ class PlantApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "plant app UI",
       // (1)
-      initialRoute: SplashScreen.routeName,
+      // initialRoute: SplashScreen.routeName,
      // (2)
       routes: route,
       // (3)
       theme: theme(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot){
+          if(snapshot.hasData){
+            return MainScreens();
+          }
+          return LoginSignupScreen();
+        },
+      ),
     );
   }
 }

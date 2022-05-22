@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/main.dart';
 import 'package:plant_app/screens/category/category_screen.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:plant_app/screens/mypage/my_page_screen.dart';
@@ -38,10 +39,10 @@ class _MainScreensState extends State<MainScreens> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.purple,
-        unselectedItemColor: Colors.black,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.white70,
         currentIndex:_selectedIndex,
-        backgroundColor: Colors.white,
+        backgroundColor: mainColor,
         onTap: onTaped,
         items: List.generate(
                  navItems.length,
