@@ -78,16 +78,16 @@ void main() {
         ChangeNotifierProvider(create: (c)=>boardData()),
         ChangeNotifierProvider(create: (c)=>recipeData())
       ],
-        child:  MarketKurly(),)
+        child:  PlantApp(),)
      );
 }
 
-class MarketKurly extends StatelessWidget {
+class PlantApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Market Kurly UI",
+      title: "plant app UI",
       // (1)
       initialRoute: SplashScreen.routeName,
      // (2)
