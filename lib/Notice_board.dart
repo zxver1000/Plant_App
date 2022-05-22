@@ -175,7 +175,7 @@ class _State extends State<writing> {
       },
       ),actions: [
 
-        TextButton(child: Text("hihi"),onPressed: (){},),
+
         IconButton(onPressed: (){
           print("여기야?");
           //name,title,content,따봉 위에서이미지로바꾸기
