@@ -1,13 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
+//import 'package:intl/intl.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/home/message.dart';
 import 'package:table_calendar/table_calendar.dart';
-//import 'calendar_event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'collect_events.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({ Key? key }) : super(key: key);
@@ -29,18 +26,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //final String eventTitle;
 
-
-
   @override
   void initState() {
     //FirebaseFirestore.instance.collection('events').snapshots();
-   
     selectedEvents = {};
     super.initState();
   }
 
-  List<String> _getEventsfromDay(DateTime date){
-    return selectedEvents[date] ?? [];
+  List<String> _getEventsfromDay(DateTime focusedDay){
+    return selectedEvents[focusedDay] ?? [];
   }
 
   //위젯이 dispose될 때 TextEditingController도 함께 dispose될 수 있게 해줌
