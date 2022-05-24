@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-//import 'package:intl/intl.dart';
-import 'package:plant_app/constants.dart';
-import 'package:plant_app/screens/home/message.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:plant_app/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,25 +14,72 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   CollectionReference event = FirebaseFirestore.instance.collection('events');
 
-  late Map<String, List<String>> selectedEvents;
+  late Map<DateTime, List<String>> selectedEvents;
   CalendarFormat format = CalendarFormat.month;
-  DateTime selectedDay = DateTime.now();
-  DateTime focusedDay = DateTime.now();
-  //final selectedDay = DateFormat('yyyy-MM-dd').format(DateTime.now()); //DateTime to String
+  DateTime selectedDay = DateTime.parse(DateTime.now().toString().substring(0,10) + " 00:00:00.000Z");
+  DateTime focusedDay = DateTime.parse(DateTime.now().toString().substring(0,10) + " 00:00:00.000Z");
 
   final  _eventController = TextEditingController(); //텍스트 필드에서 값을 가져올 수 있게 해주는 거
+  List eventList = [];
 
   //final String eventTitle;
+
+  var db = FirebaseFirestore.instance;
 
   @override
   void initState() {
     //FirebaseFirestore.instance.collection('events').snapshots();
     selectedEvents = {};
+    
+    // selectedEvents = Message(selectedDay.toString()) as Map<DateTime, List>;
+    getData();
     super.initState();
+
   }
 
-  List<String> _getEventsfromDay(DateTime focusedDay){
-    return selectedEvents[focusedDay] ?? [];
+  void _daySelect(selectDay, focusDay){
+    setState(() {
+      selectedDay = selectDay;
+      focusedDay = focusDay;
+    });
+  }
+
+  getData() async{
+    await db.collection("events").get().then((event) {
+      for (var doc in event.docs) {
+        eventList.add(doc.data());
+        //print(" ${DateTime.fromMicrosecondsSinceEpoch(doc.data()['Date'].microsecondsSinceEpoch)}");
+      }
+    });
+    
+    print(eventList);
+    //sleep(const Duration(seconds: 1));
+    eventList.asMap().forEach(
+      (index, value) {
+        // print('&&&&&&&' + value['Date']);
+        // print('&&&&&&&' + value['Title']);
+
+        if (selectedEvents[DateTime.parse(value['Date'] + " 00:00:00.000Z")] != null) {
+            selectedEvents[DateTime.parse(value['Date'] + " 00:00:00.000Z")]!.add(
+            value['Title'],
+          );
+        } else {
+          selectedEvents[DateTime.parse(value['Date'] + " 00:00:00.000Z")] = [
+            value['Title'],
+          ];
+        }
+        print(selectedEvents[DateTime.parse(value['Date'] + " 00:00:00.000Z")]);
+        //   selectedEvents[DateTime.parse(value[index][0] + " 00:00:00.000Z")] = [
+        // Event(title: value[index][1]) ]
+      },
+    );
+    print(selectedEvents);
+
+    _daySelect(selectedDay, focusedDay);
+    
+  }
+  List<dynamic> _getEventsfromDay(DateTime date){
+    return selectedEvents[date] ?? [];
   }
 
   //위젯이 dispose될 때 TextEditingController도 함께 dispose될 수 있게 해줌
@@ -82,10 +127,8 @@ class _HomeScreenState extends State<HomeScreen> {
               startingDayOfWeek: StartingDayOfWeek.sunday,
               daysOfWeekVisible: true,
               onDaySelected: (DateTime selectDay, DateTime focusDay){
-                setState(() {
-                  selectedDay = selectDay;
-                  focusedDay = focusDay;
-                });
+                _daySelect(selectDay, focusDay);
+                print(focusDay);
               },
               selectedDayPredicate: (DateTime date){
                 return isSameDay(selectedDay, date);
@@ -94,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
               eventLoader: _getEventsfromDay,
             
               //To style the Calendar
-              calendarStyle: const CalendarStyle(
+              calendarStyle: CalendarStyle(
                 isTodayHighlighted: true,
                 selectedDecoration: BoxDecoration(
                   color: purple,
@@ -102,9 +145,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 selectedTextStyle: TextStyle(color: Colors.white),
                 todayDecoration: BoxDecoration(
-                  color: mainColor,
+                  color: Colors.transparent,
                   shape: BoxShape.circle,
+                  border: Border.all(color: purple, width: 1.5)
                 ),
+                todayTextStyle: TextStyle(color: Colors.black),
                 defaultDecoration: BoxDecoration(
                   //color: Color(0xffD0CEF7),
                   shape: BoxShape.circle,
@@ -120,11 +165,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             
-            Message(selectedDay.toString()),
-            // ..._getEventsfromDay(selectedDay).map((selectedEvents) => ListTile(
-            //   title: Text(_eventController.text)
-            // ),
-            // ),//map
+            // Message(selectedDay.toString()),
+            ..._getEventsfromDay(selectedDay).map((dynamic event) => ListTile(
+              trailing: const Icon(Icons.delete),
+              onTap: () => print('tap delete'),
+              title: Text(event)
+            ),
+            ),//map
           ],
         ),
       ),
@@ -150,19 +197,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         if(_eventController.text.isEmpty){
                           
                         }else{
-                          if(selectedEvents[selectedDay.toIso8601String()] != null){
-                            selectedEvents[selectedDay.toIso8601String()]!.add(
+                          //.toIso8601String()
+                          if(selectedEvents[selectedDay] != null){
+                            selectedEvents[selectedDay]!.add(
                               _eventController.text,
                             );
                           }else{
-                            selectedEvents[selectedDay.toIso8601String()] = [
+                            selectedEvents[selectedDay] = [
                               _eventController.text
                             ];
 
                           }
                         //}
                         await event.add({
-                          'Date': selectedDay.toIso8601String(),
+                          'Date': selectedDay.toString().substring(0,10),
                           'Title': _eventController.text,
                         }).then((value) => print('User added'));
                         Navigator.pop(context);
