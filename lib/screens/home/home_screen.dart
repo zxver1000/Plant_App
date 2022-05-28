@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -47,7 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
   getData() async{
     await db.collection("events").get().then((event) {
       for (var doc in event.docs) {
-        eventList.add(doc.data());
+        // print(doc.data());
+        var eventData = doc.data();
+        eventData["id"]= doc.id;
+        // print(eventData);
+        
+
+        eventList.add(eventData);
         //print(" ${DateTime.fromMicrosecondsSinceEpoch(doc.data()['Date'].microsecondsSinceEpoch)}");
       }
     });
@@ -61,11 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
         if (selectedEvents[DateTime.parse(value['Date'] + " 00:00:00.000Z")] != null) {
             selectedEvents[DateTime.parse(value['Date'] + " 00:00:00.000Z")]!.add(
-            value['Title'],
+            value['id']+'▒'+value['Title'],
           );
         } else {
           selectedEvents[DateTime.parse(value['Date'] + " 00:00:00.000Z")] = [
-            value['Title'],
+            value['id']+'▒'+value['Title'],
           ];
         }
         print(selectedEvents[DateTime.parse(value['Date'] + " 00:00:00.000Z")]);
@@ -167,10 +175,24 @@ class _HomeScreenState extends State<HomeScreen> {
             
             // Message(selectedDay.toString()),
             ..._getEventsfromDay(selectedDay).map((dynamic event) => ListTile(
-              trailing: const Icon(Icons.delete),
-              onTap: () => print('tap delete'),
-              title: Text(event)
+              trailing: IconButton(
+                icon: Icon(Icons.delete,
+                ),
+                onPressed: () async{ 
+                  // print(event.id);
+                  await db.collection('events').doc(event.split('▒')[0]).delete().then((_) {
+                    selectedEvents[selectedDay] = [];
+                    print('delete events');
+                  });
+                  setState(() {
+                    
+                  });
+                },
+              
+              ),
+              title: Text(event.split('▒')[1])
             ),
+
             ),//map
           ],
         ),
@@ -198,21 +220,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           
                         }else{
                           //.toIso8601String()
-                          if(selectedEvents[selectedDay] != null){
-                            selectedEvents[selectedDay]!.add(
-                              _eventController.text,
-                            );
-                          }else{
-                            selectedEvents[selectedDay] = [
-                              _eventController.text
-                            ];
-
-                          }
+                          
                         //}
                         await event.add({
                           'Date': selectedDay.toString().substring(0,10),
                           'Title': _eventController.text,
-                        }).then((value) => print('User added'));
+                        }).then((value) 
+                        { 
+                          print(value.id);
+                          if(selectedEvents[selectedDay] != null){
+                            selectedEvents[selectedDay]!.add(
+                               value.id + '▒' + _eventController.text,
+                            );
+                          }else{
+                            selectedEvents[selectedDay] = [
+                              value.id + '▒' + _eventController.text
+                            ];
+
+                          }
+                        });
                         Navigator.pop(context);
                         _eventController.clear();
                         setState(() {
