@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
@@ -9,6 +10,10 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab>
     with SingleTickerProviderStateMixin {
+
+  FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  var name = "??";
+
   TabController? _tabController;
 
   @override
@@ -44,7 +49,10 @@ class _ProfileTabState extends State<ProfileTab>
   }
 
   Widget _buildTabBarView() {
+
     return TabBarView(
+
+
       controller: _tabController,
       children: [
         GridView.builder(
@@ -53,11 +61,13 @@ class _ProfileTabState extends State<ProfileTab>
             crossAxisCount: 3,
             mainAxisSpacing: 10,
           ),
-          itemCount: 42,
+
+          itemCount: 40,
 
           itemBuilder: (context, index) {
             return Container(
               color: Colors.lightGreen,
+
               child: Text(' Item : $index'),
 
             );

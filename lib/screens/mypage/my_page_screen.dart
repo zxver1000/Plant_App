@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/screens/mypage/components/profile_tab_bar.dart';
 
 import 'components/profile_buttons.dart';
 import 'components/profile_count_info.dart';
@@ -12,19 +13,22 @@ class MyPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("마이 페이지--")
+        title: Text("마이 페이지")
 
       ),
 
       body: Column(
         children: [
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           ProfileHeader(),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           ProfileCountInfo(),
-          SizedBox(height: 20),
-          ProfileButtons(),
-          Expanded(child: ProfileTab()),
+         // SizedBox(height: 10),
+         // ProfileButtons(),
+          SizedBox(height: 10,),
+          Expanded(child:TabPage())
+
+          //Expanded(child: ProfileTab()),
         ],
       ),
     );

@@ -31,6 +31,6 @@ class ProfileCountInfo extends StatelessWidget {
   }
 
   Widget _buildLine() {
-    return Container(width: 2, height: 60, color: Colors.blue);
+    return Container(width: 2, height: 30, color: Colors.blue);
   }
 }

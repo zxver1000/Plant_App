@@ -16,8 +16,8 @@ class ProfileHeader extends StatelessWidget {
 
   Widget _buildHeaderAvatar() {
     return SizedBox(
-      width: 100,
-      height: 100,
+      width: 80,
+      height: 80,
       child: CircleAvatar(
         backgroundImage: AssetImage("assets/images/avatar.png"),
       ),
@@ -31,20 +31,20 @@ class ProfileHeader extends StatelessWidget {
         Text(
           "김건국",
           style: TextStyle(
-            fontSize: 25,
+            fontSize: 20,
             fontWeight: FontWeight.w700,
           ),
         ),
         Text(
           "건국대학교 학생",
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 15,
           ),
         ),
         Text(
           "컴퓨터 공학과 재학중",
           style: TextStyle(
-            fontSize: 15,
+            fontSize: 12,
           ),
         ),
       ],
