@@ -153,6 +153,7 @@ var indexs=0;
 }
 
 
+
 class writing extends StatefulWidget {
   const writing({Key? key,this.addData}) : super(key: key);
   final addData;
@@ -166,7 +167,8 @@ class _State extends State<writing> {
   final controllerTitle=TextEditingController();
   final controllerContent=TextEditingController();
   var userimage;
-
+var id=1;
+var str="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -207,9 +209,10 @@ class _State extends State<writing> {
         mainAxisAlignment: MainAxisAlignment.start,children: [
         Text("")
         ,
-        TextButton(onPressed: (){
 
-        }, child: Text("게시판을선택하세요                                                                   ▼",style: TextStyle(fontSize: 15,color: Colors.black,),)),
+
+
+
 
         TextField(controller: controllerTitle,decoration: InputDecoration(hintText: "제목"),style: TextStyle(fontSize: 20),)
         ,TextField(controller: controllerContent,style: TextStyle(fontSize: 15),maxLines: 10,

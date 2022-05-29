@@ -79,6 +79,9 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/image_recipe/salad/
+    - assets/image_recipe/moochim/
+    - assets/image_recipe/boochim/
+    - assets/image_recipe/jorim/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
