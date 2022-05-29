@@ -39,7 +39,7 @@ class recipeData extends ChangeNotifier{
 
 
 class boardData extends ChangeNotifier{
-var userData=[];
+var userData=[Data("농부농부1", "토마토키우기 꿀팁알려드립니다", "꿀팁꿀팁", 1, File())];
 var freeData=[];
 plusVisit(Data data)
 {

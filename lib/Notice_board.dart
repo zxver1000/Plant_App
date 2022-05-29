@@ -138,9 +138,39 @@ var indexs=0;
       ),
 
            //두번쨰꺼위치!!!
-            TextButton(onPressed: (){
-              print("tab ! "+indexs.toString());
-              }, child: Text("12"))
+            CustomScrollView(
+                slivers:<Widget>[
+                  SliverFixedExtentList(
+                    itemExtent: 80.0,
+                    delegate: SliverChildBuilderDelegate((BuildContext context,int index){
+                      return Padding(
+                          padding:EdgeInsets.only(top: 1),
+                          child:
+                          Column(children: <Widget>[ ListTile(
+                            // leading: dataset[index].userImage!=null?Image.file(dataset[index].userImage):Text(""),
+                            title:Text(context.watch<boardData>().freeData[index].title.toString()),
+                            subtitle: Text(context.watch<boardData>().freeData[index].name.toString()+"    "+"조회 "+context.watch<boardData>().userData[index].visit.toString()+"   "+"댓글 "+context.watch<boardData>().userData[index].comment.toString() ),
+                            onTap : ()=>{
+                              print("tab :"+indexs.toString()),
+                              context.read<boardData>().plusVisit(context.read<boardData>().freeData[index]),
+
+
+
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return information(indexs:index,board_name: board_name[indexs],);
+                                  }))
+                            },
+                            trailing:context.watch<boardData>().freeData[index].userImage!=null?Image.file(context.watch<boardData>().freeData[index].userImage):Text(""),
+                          ),
+                            Divider(height: 1,color: Colors.black,)],)
+                      );
+                    },childCount: context.watch<boardData>().freeData.length),
+                  )
+                ]
+            )
+
+
           ],
         )
 
