@@ -25,6 +25,19 @@ class Data{
   var commentSubject=[];
   File userImage;
   Data(this.name,this.title,this.content,this.num,this.userImage);
+
+}
+class Data2{
+  var name;
+  var title;
+  var content;
+  var num;
+  var visit=0;
+  var comment=1;
+  var time;
+  var commentSubject=[];
+  Data2(this.name,this.title,this.content,this.num);
+
 }
 class recipeData extends ChangeNotifier{
   var saladData=saladRecipe;
@@ -40,7 +53,10 @@ class recipeData extends ChangeNotifier{
 
 class boardData extends ChangeNotifier{
 var userData=[];
-var freeData=[];
+var freeData=[Data2("감자감자", "토마토키우기꿀팁 알려드립니다", "01.토마토키운다", 1,),
+  Data2("감자키우기", "2022 05 30 감자 성장일기", "01.토마토키운다", 1,)
+
+];
 plusVisit(Data data)
 {
     data.visit=data.visit+1;

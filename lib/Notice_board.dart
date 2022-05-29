@@ -128,9 +128,10 @@ var indexs=0;
                           return information(indexs:index,board_name: board_name[indexs],);
                         }))
                   },
-                  trailing:context.watch<boardData>().userData[index].userImage!=null?Image.file(context.watch<boardData>().userData[index].userImage):Text(""),
+                    trailing:context.watch<boardData>().userData[index].userImage!=null?Image.file(context.watch<boardData>().userData[index].userImage):Text("")
                 ),
-                  Divider(height: 1,color: Colors.black,)],)
+                  Divider(height: 1,color: Colors.black,)],),
+
             );
           },childCount: context.watch<boardData>().userData.length),
         )
@@ -138,9 +139,30 @@ var indexs=0;
       ),
 
            //두번쨰꺼위치!!!
-            TextButton(onPressed: (){
-              print("tab ! "+indexs.toString());
-              }, child: Text("12"))
+            CustomScrollView(
+                slivers:<Widget>[
+                  SliverFixedExtentList(
+                    itemExtent: 80.0,
+                    delegate: SliverChildBuilderDelegate((BuildContext context,int index){
+                      return Padding(
+                          padding:EdgeInsets.only(top: 1),
+                          child:
+                          Column(children: <Widget>[ ListTile(
+                            // leading: dataset[index].userImage!=null?Image.file(dataset[index].userImage):Text(""),
+                            title:Text(context.watch<boardData>().freeData[index].title.toString()),
+                            subtitle: Text(context.watch<boardData>().freeData[index].name.toString()+"    "+"조회 "+context.watch<boardData>().freeData[index].visit.toString()+"   "+"댓글 "+context.watch<boardData>().freeData[index].comment.toString() ),
+                            onTap : ()=>{
+
+
+                            },
+
+                          ),
+                            Divider(height: 1,color: Colors.black,)],)
+                      );
+                    },childCount: context.watch<boardData>().freeData.length),
+                  )
+                ]
+            )
           ],
         )
 
