@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/main.dart';
 import 'package:plant_app/screens/category/category_screen.dart';
+import 'package:plant_app/screens/category/category_screen2.dart';
+import 'package:plant_app/screens/category_2/category.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:plant_app/screens/mypage/my_page_screen.dart';
 import 'package:plant_app/screens/recommend/recommend_screen.dart';
@@ -32,7 +36,7 @@ class _MainScreensState extends State<MainScreens> {
         children: [
           HomeScreen(),
           recipe(),
-          CategoryScreen(),
+          Category(),
           board(),
           MyPageScreen()
         ],
@@ -56,11 +60,24 @@ class _MainScreensState extends State<MainScreens> {
     );
   }
 
+  Future CategoryScreen_m() async {
+
+    await Firebase.initializeApp();
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    var data = await db.collection('Plants').get();
+    var details = data.docs.toList();
+
+    details.forEach((d){
+      print(d.id);
+    });
+  }
+
   void onTaped(index) {
     setState((){
       _selectedIndex = index;
     });
   }
+
 
   _buildBottomNavigationBarItem(
   { String? icon,

@@ -11,6 +11,7 @@ List listCategoryMenuList = [
   ListCategoryMenu(
     icon: "assets/icons/menu-button-svgrepo-com.svg",
     title: "계절",
+    
 
   ),
   ListCategoryMenu(
