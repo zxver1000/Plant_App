@@ -15,29 +15,29 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       onHeight((context.size!.height) /
-          (model.products.length / CategoryHelper.GRID_COLUMN_VALUE));
+          (model.plants.length / CategoryHelper.GRID_COLUMN_VALUE));
     });
     return Column(
       children: [
         Divider(),
         Text("${model.categoryName} $index"),
         Card(
-          child: buildGridViewProducts(index, model.products),
+          child: buildGridViewProducts(index, model.plants),
         ),
       ],
     );
   }
 
-  GridView buildGridViewProducts(int index, List<Product> products) {
+  GridView buildGridViewProducts(int index, List<Plant> plants) {
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: products.length,
+      itemCount: plants.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: CategoryHelper.GRID_COLUMN_VALUE),
       itemBuilder: (context, index) {
         return Card(
-          child: Text(products[index].name),
+          child: Text(plants[index].name),
         );
       },
     );

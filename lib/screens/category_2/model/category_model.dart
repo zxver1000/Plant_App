@@ -1,14 +1,16 @@
 class CategoryModel {
+
+
   final String categoryName;
-  final List<Product> products;
+  final List<Plant> plants;
   double position = 0;
 
-  CategoryModel({required this.categoryName, required this.products});
+  CategoryModel({required this.categoryName, required this.plants});
 }
 
-class Product {
+class Plant {
   final String name;
   final int price;
 
-  Product(this.name, this.price);
+  Plant(this.name, this.price);
 }

@@ -41,14 +41,14 @@ class CategoryView extends CategoryViewModel {
   ListView get buildListViewShop {
     return ListView.builder(
       controller: scrollController,
-      itemCount: shopListAndSpaceAreaLength,
+      itemCount: plantListAndSpaceAreaLength,
       itemBuilder: (context, index) {
         print(index);
-        if (index == shopListLastIndex)
+        if (index == plantListLastIndex)
           return emptyWidget;
         else
           return CategoryCard(
-            model: shopList[index],
+            model: plantList[index],
             index: index,
             onHeight: (val) {
               fillListPositionValues(val);
@@ -59,16 +59,16 @@ class CategoryView extends CategoryViewModel {
   }
 
 
-  int get shopListAndSpaceAreaLength => shopList.length + 1;
+  int get plantListAndSpaceAreaLength => plantList.length + 1;
 
-  int get shopListLastIndex => shopList.length;
+  int get plantListLastIndex => plantList.length;
 
   Container get emptyWidget => Container(height: oneItemHeight * 2);
 
   Widget get buildListViewHeader {
     return Consumer<TabBarChange>(
       builder: (context, value, child) => ListView.builder(
-        itemCount: shopList.length,
+        itemCount: plantList.length,
         controller: headerScrollController,
         padding: EdgeInsets.all(10),
         scrollDirection: Axis.horizontal,
@@ -84,7 +84,7 @@ class CategoryView extends CategoryViewModel {
         style:ElevatedButton.styleFrom(primary: Colors.red,
             shape: StadiumBorder()),
         onPressed: () => headerListChangePosition(index),
-        child: Text("${shopList[index].categoryName} $index"),
+        child: Text("${plantList[index].categoryName} $index"),
         
       ),
     );
