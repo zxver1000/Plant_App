@@ -13,28 +13,47 @@ abstract class CategoryViewModel extends State<Category> {
 
   List<CategoryModel> plantList = [];
 
-  var categories = ["계절","난이도","장소"];
+  var categories = ["봄","여름","가을","겨울","난이도-하","난이도-중","난이도-상","실내","실외","관상용","식용"];
 
   @override
-  void initState() {
+  void initState() async{
     super.initState();
-
-    FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
     var  name = "??";
     List<Map> plantDbList ;
 
+    FirebaseFirestore fireStore = FirebaseFirestore.instance;
+    DocumentSnapshot test = await fireStore.collection('Plants').doc('baby_apple').get();
+    name = test['season'];
+    print(name);
+
+    List<Plant> plant_list = [
+      Plant("apple", 2000),
+      Plant("lemon", 3000),
+      Plant("lemon", 3000),
+      Plant("lemon", 3000),
+      Plant("lemon", 3000),
+      Plant("lemon", 3000),
+      Plant("lemon", 3000),Plant("lemon", 3000),
+      Plant("lemon", 3000),Plant("lemon", 3000),
+    Plant("lemon", 3000),Plant("lemon", 3000),Plant("lemon", 3000),
+      Plant("lemon", 3000),Plant("lemon", 3000),Plant("lemon", 3000),
+      Plant("lemon", 3000),Plant("lemon", 3000),Plant("lemon", 3000),
+
+    ];
+
+
     plantList = List.generate(
-          3,
+          11,
           (index) => CategoryModel(
         // 카테고리 정보
             categoryName: "${categories[index]}",
 
         // 식물 정보 넣기
-        plants: List.generate(
+        plants: plant_list/* List.generate(
           6,
               (index) => Plant("Plant $index", index * 100),
-        ),
+        ),*/
       ),
     );
 
