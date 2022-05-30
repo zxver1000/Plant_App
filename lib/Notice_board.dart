@@ -4,6 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:intl/intl.dart';
+import 'package:plant_app/main.dart';
+import 'package:provider/provider.dart';
+
 class Data{
   var name;
   var title;
@@ -68,7 +71,7 @@ late TabController? tab;
     vsync: this,
   );
 }
-var indexs=1;
+var indexs=0;
   @override
   Widget build(BuildContext context) {
   var board_name=["자유게시판","자랑게시판","레시피"];
@@ -112,27 +115,62 @@ var indexs=1;
                 child:
                 Column(children: <Widget>[ ListTile(
                   // leading: dataset[index].userImage!=null?Image.file(dataset[index].userImage):Text(""),
-                  title:Text(dataset[index].title),
-                  subtitle: Text(dataset[index].name+"    "+"조회 "+dataset[index].visit.toString()+"   "+"댓글 "+dataset[index].comment.toString() ),
+                  title:Text(context.watch<boardData>().userData[index].title.toString()),
+                  subtitle: Text(context.watch<boardData>().userData[index].name.toString()+"    "+"조회 "+context.watch<boardData>().userData[index].visit.toString()+"   "+"댓글 "+context.watch<boardData>().userData[index].comment.toString() ),
                   onTap : ()=>{
                     print("tab :"+indexs.toString()),
-                   plusVisit(dataset[index]),
+                    context.read<boardData>().plusVisit(context.read<boardData>().userData[index]),
+
+
+
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                          return information(data:dataset[index],board_name:board_name[indexs],addcomment:addcomment);
+                          return information(indexs:index,board_name: board_name[indexs],);
                         }))
                   },
-                  trailing:dataset[index].userImage!=null?Image.file(dataset[index].userImage):Text(""),
+                  trailing:context.watch<boardData>().userData[index].userImage!=null?Image.file(context.watch<boardData>().userData[index].userImage):Text(""),
                 ),
                   Divider(height: 1,color: Colors.black,)],)
             );
-          },childCount: dataset.length),
+          },childCount: context.watch<boardData>().userData.length),
         )
           ]
       ),
 
            //두번쨰꺼위치!!!
-            TextButton(onPressed: (){print("tab!! :"+indexs.toString());}, child: Text("12"))
+            CustomScrollView(
+                slivers:<Widget>[
+                  SliverFixedExtentList(
+                    itemExtent: 80.0,
+                    delegate: SliverChildBuilderDelegate((BuildContext context,int index){
+                      return Padding(
+                          padding:EdgeInsets.only(top: 1),
+                          child:
+                          Column(children: <Widget>[ ListTile(
+                            // leading: dataset[index].userImage!=null?Image.file(dataset[index].userImage):Text(""),
+                            title:Text(context.watch<boardData>().freeData[index].title.toString()),
+                            subtitle: Text(context.watch<boardData>().freeData[index].name.toString()+"    "+"조회 "+context.watch<boardData>().userData[index].visit.toString()+"   "+"댓글 "+context.watch<boardData>().userData[index].comment.toString() ),
+                            onTap : ()=>{
+                              print("tab :"+indexs.toString()),
+                              context.read<boardData>().plusVisit(context.read<boardData>().freeData[index]),
+
+
+
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return information(indexs:index,board_name: board_name[indexs],);
+                                  }))
+                            },
+                            trailing:context.watch<boardData>().freeData[index].userImage!=null?Image.file(context.watch<boardData>().freeData[index].userImage):Text(""),
+                          ),
+                            Divider(height: 1,color: Colors.black,)],)
+                      );
+                    },childCount: context.watch<boardData>().freeData.length),
+                  )
+                ]
+            )
+
+
           ],
         )
 
@@ -167,16 +205,25 @@ class _State extends State<writing> {
       },
       ),actions: [
 
-        TextButton(child: Text("hihi"),onPressed: (){},),
+
         IconButton(onPressed: (){
           print("여기야?");
           //name,title,content,따봉 위에서이미지로바꾸기
           if(userimage!=null) {
             print("hihi");
+            context.read<boardData>().addData(
+                "작성자", controllerTitle.text, controllerContent.text,1,userimage);
+
+
+    print(context.read<boardData>().userData[0].title);
+
+            /*
             widget.addData(
                 "작성자", controllerTitle.text, controllerContent.text,1,userimage);
             print("add");
+          */
           }
+
           Navigator.pop(context,false);
         },icon: Icon(Icons.add))
       ],),
@@ -238,9 +285,10 @@ class _State extends State<writing> {
 }
 
 class information extends StatefulWidget {
-  const information({Key? key,this.data,this.board_name,this.addcomment}) : super(key: key);
+  const information({Key? key,this.data,this.board_name,this.addcomment,this.indexs}) : super(key: key);
   final data;
   final board_name;
+  final indexs;
   final addcomment;
   @override
   State<information> createState() => _informationState();
@@ -252,8 +300,13 @@ class _informationState extends State<information> {
   @override
   void setState(VoidCallback fn) {
     // TODO: implement setState
+    print("widget index : "+widget.indexs.toString());
+
+
+
     super.setState(fn);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -266,18 +319,18 @@ class _informationState extends State<information> {
        SliverToBoxAdapter(
          child: Padding(
            padding:EdgeInsets.all(13),
-             child:Text(widget.board_name+" >")),
+             child:Text(widget.board_name.toString()+" >")),
        )
           ,SliverToBoxAdapter(
             child: Padding(padding: EdgeInsets.all(13),
-              child:Text(widget.data.title,style:TextStyle(fontSize: 30) ,) ,),
+              child:Text(context.watch<boardData>().userData[widget.indexs].title.toString(),style:TextStyle(fontSize: 30) ,) ,),
           )
           ,
           SliverToBoxAdapter(
             child: ListTile(
               leading: Icon(Icons.person,size:50),
-              title:Text(widget.data.name),
-              subtitle: Text(widget.data.time.toString()+" "+"조회 "+widget.data.visit.toString()),
+              title:Text(context.watch<boardData>().userData[widget.indexs].name.toString()),
+              subtitle: Text(context.watch<boardData>().userData[widget.indexs].time.toString()+" "+"조회 "+context.watch<boardData>().userData[widget.indexs].visit.toString()),
             ),
           ),
           SliverToBoxAdapter(
@@ -289,9 +342,9 @@ class _informationState extends State<information> {
                 Padding(padding:EdgeInsets.only(top: 10),),
 
                 Text(""),
-                Padding(padding: EdgeInsets.all(10),child:Text(widget.data.content) ,) ,
+                Padding(padding: EdgeInsets.all(10),child:Text(context.watch<boardData>().userData[widget.indexs].content.toString()) ,) ,
                 Padding(padding:EdgeInsets.only(top: 20),),
-                widget.data.userImage!=null?Image.file(widget.data.userImage,width: 400,height: 400,):Text("")
+                context.watch<boardData>().userData[widget.indexs].userImage!=null?Image.file(context.watch<boardData>().userData[widget.indexs].userImage,width: 400,height: 400,):Text("")
               ],
             ) ,)
 ,
@@ -306,11 +359,11 @@ class _informationState extends State<information> {
         style:TextButton.styleFrom(primary: Colors.black),),
         TextButton(onPressed: (){
           Navigator.of(context,rootNavigator: true).push(
-       CupertinoPageRoute<void>(builder: (BuildContext context)=>comments(data:widget.data,addcomment:widget.addcomment))
+       CupertinoPageRoute<void>(builder: (BuildContext context)=>comments(index:widget.indexs))
           );
 
         },
-            child:Row(children: [Icon(Icons.comment),Padding(padding: EdgeInsets.only(left: 5)),Text(widget.data.comment.toString(),style: TextStyle(fontSize: 20),)],),
+            child:Row(children: [Icon(Icons.comment),Padding(padding: EdgeInsets.only(left: 5)),Text(context.watch<boardData>().userData[widget.indexs].comment.toString(),style: TextStyle(fontSize: 20),)],),
           style:TextButton.styleFrom(primary: Colors.black) , )],),
     ),
     );
@@ -318,8 +371,9 @@ class _informationState extends State<information> {
 }
 
 class comments extends StatefulWidget {
-  const comments({Key? key,this.data,this.addcomment}) : super(key: key);
+  const comments({Key? key,this.data,this.addcomment,this.index}) : super(key: key);
   final data;
+  final index;
   final addcomment;
   @override
   State<comments> createState() => _commentsState();
@@ -332,6 +386,8 @@ class _commentsState extends State<comments> {
     super.setState(fn);
   }
 
+
+
   final controllerComment=TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -341,14 +397,16 @@ class _commentsState extends State<comments> {
         children:<Widget>[
           Flexible(
             child:Stack(children: [Positioned(top:0.0,child: Text("")),
-            buildItem(data:widget.data)],),
+            buildItem(index:widget.index)],),
 
           ),Divider(height: 1.0,color: Colors.black,),
           Container(decoration:BoxDecoration(color: Theme.of(context).cardColor),
           child: Row(children: [Flexible(child:TextField(controller: controllerComment,decoration: InputDecoration(hintText: "댓글을 남겨보세요!") )
           ),TextButton(onPressed: (){
             print(controllerComment.text);
-            widget.addcomment(widget.data,controllerComment.text.toString());
+
+            context.read<boardData>().addcomment(context.read<boardData>().userData[widget.index],controllerComment.text.toString());
+
 
           }, child: Text("등록",),style: TextButton.styleFrom(
             backgroundColor: Colors.green,
@@ -363,8 +421,9 @@ class _commentsState extends State<comments> {
 }
 
 class buildItem extends StatefulWidget {
-  const buildItem({Key? key,this.data}) : super(key: key);
+  const buildItem({Key? key,this.data,this.index}) : super(key: key);
  final data;
+ final index;
   @override
   State<buildItem> createState() => _buildItemState();
 }
@@ -379,12 +438,12 @@ class _buildItemState extends State<buildItem> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: widget.data.comment,
+      itemCount: context.watch<boardData>().userData[widget.index].comment,
       itemBuilder: (BuildContext context,int index)=>
          Column(children: [ListTile(
            leading: Icon(Icons.person,size: 30,),
-           title:Text(widget.data.name),
-           subtitle: Text(widget.data.commentSubject[index].toString()),
+           title:Text(context.watch<boardData>().userData[widget.index].name.toString()),
+           subtitle: Text(context.watch<boardData>().userData[widget.index].commentSubject[index].toString()),
          ),Divider(height: 1,color: Colors.black,)],) ,
     );
   }
