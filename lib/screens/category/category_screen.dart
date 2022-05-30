@@ -15,7 +15,7 @@ class CategoryScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("식물 정보"),
         automaticallyImplyLeading: false,
-        actions: [CustomActions()],
+        
       ),
       body: CustomScrollView(
         slivers: [
