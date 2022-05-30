@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/screens/category_2/category.dart';
 import 'package:plant_app/screens/category_2/model/category_helper.dart';
 import 'package:plant_app/screens/category_2/model/category_model.dart';
+import 'package:plant_app/screens/category_2/plant_lists.dart';
 import 'package:plant_app/screens/category_2/state/tabbar_change.dart';
 
 
@@ -27,7 +28,9 @@ abstract class CategoryViewModel extends State<Category> {
     name = test['season'];
     print(name);
 
-    List<Plant> plant_list = [
+
+/*
+    List<Plant> plant_list1 = [
       Plant("apple", 2000),
       Plant("lemon", 3000),
       Plant("lemon", 3000),
@@ -42,6 +45,24 @@ abstract class CategoryViewModel extends State<Category> {
 
     ];
 
+    List<Plant> plant_list2 = [
+      Plant("apple2", 2000),
+      Plant("lemon", 3000),
+      Plant("lemon", 3000),
+      Plant("lemon", 3000),
+      Plant("lemon", 3000),
+      Plant("lemon", 3000),
+      Plant("lemon", 3000),Plant("lemon", 3000),
+      Plant("lemon", 3000),Plant("lemon", 3000),
+      Plant("lemon", 3000),Plant("lemon", 3000),Plant("lemon", 3000),
+      Plant("lemon", 3000),Plant("lemon", 3000),Plant("lemon", 3000),
+      Plant("lemon", 3000),Plant("lemon", 3000),Plant("lemon", 3000),
+
+    ];
+
+ */
+
+    List plant_lists = [plant_list1 ,plant_list2, plant_list3, plant_list4, plant_list5, plant_list6,plant_list7,plant_list8,plant_list9,plant_list10, plant_list11];
 
     plantList = List.generate(
           11,
@@ -50,7 +71,7 @@ abstract class CategoryViewModel extends State<Category> {
             categoryName: "${categories[index]}",
 
         // 식물 정보 넣기
-        plants: plant_list/* List.generate(
+           plants: plant_lists[index]/* List.generate(
           6,
               (index) => Plant("Plant $index", index * 100),
         ),*/
