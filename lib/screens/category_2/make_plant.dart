@@ -2,6 +2,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/screens/category_2/model/category_model.dart';
+import 'package:plant_app/screens/category_2/plant_lists.dart';
 
 class MakePlant extends StatefulWidget {
   const MakePlant({Key? key}) : super(key: key);
@@ -22,6 +24,7 @@ class _MakePlantState extends State<MakePlant> {
 
   String plantName ='';
   String content ='';
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,14 +89,14 @@ class _MakePlantState extends State<MakePlant> {
           ElevatedButton(
               onPressed: (){
 
-                fireStore.collection('식물등록').doc().set({
+                fireStore.collection('식물등록').doc('user1').set({
 
                   "plant_name":plantName,
                   "content":content,
 
                 });
 
-
+              Navigator.pop(context);
               },
               child: Text('업로드 하기')
              ),

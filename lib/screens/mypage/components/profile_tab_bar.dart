@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class TabPage extends StatefulWidget {
@@ -10,11 +11,23 @@ class TabPage extends StatefulWidget {
 class _TabPageState extends State<TabPage> with TickerProviderStateMixin {
   late TabController _tabController;
 
+  FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  var plant_name ='';
+  var content ='';
+
+
   @override
   void initState() {
-    _tabController = TabController(
+
+    /*DocumentSnapshot test = fireStore.collection('식물등록').doc('user1').get();
+    setState(() {
+      plant_name = test['name'];
+    });
+*/
+    _tabController = TabController (
       length: 2,
-      vsync: this,  //vsync에 this 형태로 전달해야 애니메이션이 정상 처리됨
+      vsync: this,
+      //vsync에 this 형태로 전달해야 애니메이션이 정상 처리됨
     );
     super.initState();
   }
@@ -69,14 +82,14 @@ class _TabPageState extends State<TabPage> with TickerProviderStateMixin {
           ),
           Expanded(
             child: TabBarView(
+
               controller: _tabController,
               children: [
                 Container(
                   color: Colors.yellow[200],
                   alignment: Alignment.center,
-                  child: Text(
-                    'Tab1 View',
-                    style: TextStyle(
+                  child: Text(plant_name,
+                  style: TextStyle(
                       fontSize: 30,
                     ),
                   ),

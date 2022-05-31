@@ -10,7 +10,10 @@ class CategoryModel {
 
 class Plant {
   final String name;
-  final int price;
+  final String place;
+  final String difficulty;
+  final String use;
+  final int water_cycle;
 
-  Plant(this.name, this.price);
+  Plant(this.name, this.place, this.difficulty, this.use, this.water_cycle);
 }
