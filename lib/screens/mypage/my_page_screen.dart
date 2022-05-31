@@ -7,8 +7,14 @@ import 'components/profile_count_info.dart';
 import 'components/profile_header.dart';
 import 'components/profile_tab.dart';
 
-class MyPageScreen extends StatelessWidget {
+class MyPageScreen extends StatefulWidget {
   const MyPageScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MyPageScreen> createState() => _MyPageScreenState();
+}
+
+class _MyPageScreenState extends State<MyPageScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +31,8 @@ class MyPageScreen extends StatelessWidget {
           ProfileHeader(),
           SizedBox(height: 10),
           ProfileCountInfo(),
-         // SizedBox(height: 10),
-         // ProfileButtons(),
+          // SizedBox(height: 10),
+          // ProfileButtons(),
           SizedBox(height: 10,),
           Expanded(child:TabPage())
 
@@ -35,4 +41,5 @@ class MyPageScreen extends StatelessWidget {
       ),
     );
   }
+
 }
