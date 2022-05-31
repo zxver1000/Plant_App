@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class MakePlant extends StatefulWidget {
   const MakePlant({Key? key}) : super(key: key);
 
+  static String routeName = "make_plant";
+
   @override
   State<MakePlant> createState() => _MakePlantState();
 }
@@ -11,9 +13,26 @@ class MakePlant extends StatefulWidget {
 class _MakePlantState extends State<MakePlant> {
   @override
   Widget build(BuildContext context) {
+    final data = ModalRoute.of(context)!.settings;
+
+    late String retriveString;
+
+    if(data.arguments == null)
+      retriveString = "empty";
+    else
+      retriveString = data.arguments as String;
+
+    print(data);
+
+
     return Scaffold(
-      appBar: AppBar(title: Text("식물 등록 테스트"),),
-      body: Container(),
+      appBar: AppBar(title: Text('식물 등록 화면')),
+      body: Column(
+        children: [
+          Text("Test page"),
+          Text("Got a data - $retriveString"),
+        ],
+      )
     );
   }
 }
