@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:plant_app/screens/category_2/make_plant.dart';
 import 'package:plant_app/screens/category_2/model/category_helper.dart';
 import 'package:plant_app/screens/category_2/model/category_model.dart';
 
@@ -20,7 +21,7 @@ class CategoryCard extends StatelessWidget {
     return Column(
       children: [
         Divider(),
-        Text("${model.categoryName} $index"),
+        Text("${model.categoryName} "),
         Card(
           child: buildGridViewProducts(index, model.plants),
         ),
@@ -29,6 +30,7 @@ class CategoryCard extends StatelessWidget {
   }
 
   GridView buildGridViewProducts(int index, List<Plant> plants) {
+
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -37,7 +39,42 @@ class CategoryCard extends StatelessWidget {
           crossAxisCount: CategoryHelper.GRID_COLUMN_VALUE),
       itemBuilder: (context, index) {
         return Card(
-          child: Text(plants[index].name),
+          //child: Text(plants[index].name),
+          /*child: ListTile(
+           title: Text(plants[index].name),
+           leading: CircleAvatar(
+             backgroundImage: AssetImage('assets/icons/user.svg'),
+             radius: 15,
+
+
+           ),
+           onTap: (){
+             print('Card Clicked');
+
+             },
+         )
+          */
+         child: Container(
+           child: Column(
+             children: [
+               SizedBox(height: 10,),
+               Text(plants[index].name),
+
+               ElevatedButton(
+
+                   onPressed: () {
+                     Navigator.push(
+                       context,
+                       MaterialPageRoute(builder: (context) => MakePlant()),
+                     );
+
+                   },
+                   child: Text("식물 등록 ")
+               )
+             ],
+           ),
+         )
+
         );
       },
     );

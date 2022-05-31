@@ -32,13 +32,13 @@ class CategoryView extends CategoryViewModel {
         children: [
           Expanded(flex: 1, child: buildListViewHeader),
           Divider(),
-          Expanded(flex: 9, child: buildListViewShop),
+          Expanded(flex: 9, child: buildListViewPlant),
         ],
       ),
     );
   }
 
-  ListView get buildListViewShop {
+  ListView get buildListViewPlant {
     return ListView.builder(
       controller: scrollController,
       itemCount: plantListAndSpaceAreaLength,
