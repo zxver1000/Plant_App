@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/mypage/components/profile_tab_bar.dart';
 
 import 'components/profile_buttons.dart';
@@ -13,7 +14,8 @@ class MyPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("마이 페이지")
+        title: Text("마이 페이지"),
+        backgroundColor: mainColor,
 
       ),
 

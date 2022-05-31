@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/category_2/category_view_model.dart';
 import 'package:plant_app/screens/category_2/state/tabbar_change.dart';
 import 'package:plant_app/screens/category_2/widget/category_card.dart';
@@ -19,7 +20,8 @@ class CategoryView extends CategoryViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title:Text('카테고리별 선택'),
+      backgroundColor: mainColor,),
       body: buildChangeBody(),
     );
   }
@@ -69,6 +71,7 @@ class CategoryView extends CategoryViewModel {
     return Consumer<TabBarChange>(
       builder: (context, value, child) => ListView.builder(
         itemCount: plantList.length,
+
         controller: headerScrollController,
         padding: EdgeInsets.all(10),
         scrollDirection: Axis.horizontal,
@@ -81,10 +84,11 @@ class CategoryView extends CategoryViewModel {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5),
       child: ElevatedButton(
-        style:ElevatedButton.styleFrom(primary: Colors.red,
+        style:ElevatedButton.styleFrom(primary: Colors.teal[50],
             shape: StadiumBorder()),
         onPressed: () => headerListChangePosition(index),
-        child: Text("${plantList[index].categoryName} $index"),
+        child: Text("${plantList[index].categoryName} $index",
+        style: TextStyle(color: Colors.black45),),
         
       ),
     );

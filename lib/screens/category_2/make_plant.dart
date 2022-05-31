@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 
 class MakePlant extends StatefulWidget {
   const MakePlant({Key? key}) : super(key: key);
@@ -26,7 +27,8 @@ class _MakePlantState extends State<MakePlant> {
 
 
     return Scaffold(
-      appBar: AppBar(title: Text('식물 등록 화면')),
+      appBar: AppBar(title: Text('식물 등록 화면'),
+      backgroundColor: mainColor,),
       body: Column(
         children: [
           Text("Test page"),

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/category_2/make_plant.dart';
 import 'package:plant_app/screens/category_2/model/category_helper.dart';
 import 'package:plant_app/screens/category_2/model/category_model.dart';
@@ -81,7 +82,8 @@ class CategoryCard extends StatelessWidget {
                Text(plants[index].name),
 
                ElevatedButton(
-
+                   style: ButtonStyle(
+                       backgroundColor:MaterialStateProperty.all(purple) ),
                    onPressed: () {
                    //  Navigator.push(context, MaterialPageRoute(builder: (context) => MakePlant()),
                    Navigator.of(context).push(

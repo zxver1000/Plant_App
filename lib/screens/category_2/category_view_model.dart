@@ -29,39 +29,6 @@ abstract class CategoryViewModel extends State<Category> {
     print(name);
 
 
-/*
-    List<Plant> plant_list1 = [
-      Plant("apple", 2000),
-      Plant("lemon", 3000),
-      Plant("lemon", 3000),
-      Plant("lemon", 3000),
-      Plant("lemon", 3000),
-      Plant("lemon", 3000),
-      Plant("lemon", 3000),Plant("lemon", 3000),
-      Plant("lemon", 3000),Plant("lemon", 3000),
-    Plant("lemon", 3000),Plant("lemon", 3000),Plant("lemon", 3000),
-      Plant("lemon", 3000),Plant("lemon", 3000),Plant("lemon", 3000),
-      Plant("lemon", 3000),Plant("lemon", 3000),Plant("lemon", 3000),
-
-    ];
-
-    List<Plant> plant_list2 = [
-      Plant("apple2", 2000),
-      Plant("lemon", 3000),
-      Plant("lemon", 3000),
-      Plant("lemon", 3000),
-      Plant("lemon", 3000),
-      Plant("lemon", 3000),
-      Plant("lemon", 3000),Plant("lemon", 3000),
-      Plant("lemon", 3000),Plant("lemon", 3000),
-      Plant("lemon", 3000),Plant("lemon", 3000),Plant("lemon", 3000),
-      Plant("lemon", 3000),Plant("lemon", 3000),Plant("lemon", 3000),
-      Plant("lemon", 3000),Plant("lemon", 3000),Plant("lemon", 3000),
-
-    ];
-
- */
-
     List plant_lists = [plant_list1 ,plant_list2, plant_list3, plant_list4, plant_list5, plant_list6,plant_list7,plant_list8,plant_list9,plant_list10, plant_list11];
 
     plantList = List.generate(
@@ -69,6 +36,7 @@ abstract class CategoryViewModel extends State<Category> {
           (index) => CategoryModel(
         // 카테고리 정보
             categoryName: "${categories[index]}",
+
 
         // 식물 정보 넣기
            plants: plant_lists[index]/* List.generate(
