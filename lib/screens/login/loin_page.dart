@@ -44,12 +44,6 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
               left: 0,
               child: Container(
                 height: 300,
-                // decoration: BoxDecoration(
-                //   image: DecorationImage(
-                //     image: AssetImage('assets/images/color_back.png'),
-                //     fit: BoxFit.fill
-                //   ),
-                // ),
                 child: Container(
                   padding: EdgeInsets.only(top:90, left: 20),
                   child: Column(
@@ -478,22 +472,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                               password: userPassword,
                             );
                             if (newUser.user != null) {
-                              // setState(() {
-                              //   showSpinner = true;
-                              // });
                               print(newUser.user);
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) {
-                              //       return BottomNavi();
-                              //     },
-                              //   ),
-                              // );
-                              // setState(() {
-                              //   showSpinner = false;
-                              // });
-                              
                             }
                           }catch(e){
                             print(e);

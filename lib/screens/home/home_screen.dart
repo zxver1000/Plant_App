@@ -101,8 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calendar'),
-        backgroundColor: mainColor,
+        title: const Text('캘린더'),
+        backgroundColor: kPrimaryColor,
         centerTitle: true,
         actions: [
           IconButton(
@@ -112,7 +112,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             onPressed: (){
               FirebaseAuth.instance.signOut();
-              //Navigator.pop(context);
             },
           )
         ],
@@ -123,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Column(
           children: [
             TableCalendar(
+              //locale: 'ko-KR',
               focusedDay: focusedDay,
               firstDay: DateTime(1990),
               lastDay: DateTime(2050),
@@ -182,6 +182,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   // print(event.id);
                   await db.collection('events').doc(event.split('▒')[0]).delete().then((_) {
                     selectedEvents[selectedDay] = [];
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        duration: Duration(milliseconds: 1000),
+                        content: Text('일정을 삭제하였습니다!'),),);
                     print('delete events');
                   });
                   setState(() {
@@ -198,12 +202,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: beige,
+        backgroundColor: Colors.teal,
         onPressed: () =>
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                title: const Text("Add Event"),
+                title: const Text("일정 추가하기"),
                 content: TextFormField(
                   controller: _eventController, //_eventController.text로 텍스트필드에 쓴 일정을 꺼내옴
                 ),
@@ -211,10 +215,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   TextButton(
                     style: TextButton.styleFrom(
                       primary: Colors.white,
-                      backgroundColor: mainColor
+                      backgroundColor: kPrimaryColor
                     ),
                     onPressed: ()async{
                       
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          duration: Duration(milliseconds: 1000),
+                          content: Text('일정을 추가하였습니다!'),),);
                       //for(int i = 0; i < selectedEvents.length; i++){
                         if(_eventController.text.isEmpty){
                           
@@ -248,21 +256,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       }
                       
                     },
-                    child: const Text("OK"),
+                    child: const Text("추가"),
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
                       primary: Colors.white,
-                      backgroundColor: mainColor
+                      backgroundColor: kPrimaryColor
                     ),
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("Cancel"),
+                    onPressed: (){
+                      Navigator.pop(context);
+                      },
+                    child: const Text("취소"),
                   ),
                 ],
               )
             ),
-        label: const Text("Add Event", style: TextStyle(color: Colors.black),),
-        icon: const Icon(Icons.add, color: Colors.black,),
+        label: const Text("일정 추가", style: TextStyle(color: Colors.white),),
+        icon: const Icon(Icons.add, color: Colors.white,),
       ),
       
     );

@@ -40,9 +40,9 @@ class _MainScreensState extends State<MainScreens> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.white70,
+        unselectedItemColor: Colors.white,
         currentIndex:_selectedIndex,
-        backgroundColor: mainColor,
+        backgroundColor: kPrimaryColor,
         onTap: onTaped,
         items: List.generate(
                  navItems.length,
@@ -73,7 +73,7 @@ class _MainScreensState extends State<MainScreens> {
       child: IconButton(
         onPressed: press,
         icon: SvgPicture.asset(icon!,
-            color: isActive ? kPrimaryColor : Colors.black),
+            color: isActive ? Colors.white : Colors.black),
       ),
     ),
       label: label,
