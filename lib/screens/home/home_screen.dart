@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('캘린더'),
-        backgroundColor: kPrimaryColor,
+        backgroundColor: mainColor,
         centerTitle: true,
         actions: [
           IconButton(
@@ -202,7 +202,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.teal,
+        backgroundColor: beige,
         onPressed: () =>
             showDialog(
               context: context,
@@ -215,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   TextButton(
                     style: TextButton.styleFrom(
                       primary: Colors.white,
-                      backgroundColor: kPrimaryColor
+                      backgroundColor: mainColor
                     ),
                     onPressed: ()async{
                       
@@ -261,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   TextButton(
                     style: TextButton.styleFrom(
                       primary: Colors.white,
-                      backgroundColor: kPrimaryColor
+                      backgroundColor: mainColor
                     ),
                     onPressed: (){
                       Navigator.pop(context);
@@ -271,8 +271,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               )
             ),
-        label: const Text("일정 추가", style: TextStyle(color: Colors.white),),
-        icon: const Icon(Icons.add, color: Colors.white,),
+        label: const Text("일정 추가", style: TextStyle(color: Colors.black),),
+        icon: const Icon(Icons.add, color: Colors.black,),
       ),
       
     );
