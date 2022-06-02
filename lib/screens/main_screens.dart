@@ -7,7 +7,6 @@ import 'package:plant_app/screens/mypage/my_page_screen.dart';
 import 'package:plant_app/screens/recommend/recommend_screen.dart';
 import 'package:plant_app/screens/search/search_screen.dart';
 import 'package:plant_app/models/nav_item.dart';
-import 'package:plant_app/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_app/Notice_board.dart';
 import 'package:plant_app/screens/recipe/recipe.dart';
