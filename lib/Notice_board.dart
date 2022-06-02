@@ -132,7 +132,7 @@ var indexs=0;
                   title:Text(context.watch<boardData>().userData[index].title.toString()),
                   subtitle: Text(context.watch<boardData>().userData[index].name.toString()+"    "+"조회 "+context.watch<boardData>().userData[index].visit.toString()+"   "+"댓글 "+context.watch<boardData>().userData[index].comment.toString() ),
                   onTap : ()=>{
-                    print("tab :"+indexs.toString()),
+                    print("tab :g"+indexs.toString()),
                     context.read<boardData>().plusVisit(context.read<boardData>().userData[index]),
 
 
