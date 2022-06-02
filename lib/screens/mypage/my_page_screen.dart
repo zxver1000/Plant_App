@@ -85,7 +85,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
             height: 120,
             width: 400,
             decoration:BoxDecoration(
-                color: Colors.red,
+                color: beige,
                 border: Border.all(
                     color: Colors.white54,
                     style: BorderStyle.solid,
