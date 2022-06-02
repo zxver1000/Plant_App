@@ -21,9 +21,11 @@ class _MakePlantState extends State<MakePlant> {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController contentController = TextEditingController();
+  TextEditingController watercycleController = TextEditingController();
 
   String plantName ='';
   String content ='';
+  String water_cycle = '';
 
 
   @override
@@ -78,11 +80,30 @@ class _MakePlantState extends State<MakePlant> {
               border: OutlineInputBorder(),
               labelText: '내용',
             ),
-            maxLines: 5,
+            maxLines: 3,
             onChanged: (value){
               setState(() {
                 content = value;
-              });
+              }
+              );
+
+            },
+          ),
+
+          SizedBox(height: 5,),
+
+          TextField(
+            controller: watercycleController,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: '물주기 선택',
+            ),
+            maxLines: 1,
+            onChanged: (value){
+              setState(() {
+                water_cycle = value;
+              }
+              );
 
             },
           ),
@@ -93,6 +114,7 @@ class _MakePlantState extends State<MakePlant> {
 
                   "plant_name":plantName,
                   "content":content,
+                  "water_cycle":water_cycle
 
                 });
 

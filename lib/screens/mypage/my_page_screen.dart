@@ -20,6 +20,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   var plant_name = " ";
   var content = " ";
+  var water_cycle = " ";
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
               setState(() {
                 plant_name = test['plant_name'];
                 content = test['content'];
+                water_cycle = test['water_cycle'];
               });
                 } ,
               style: ElevatedButton.styleFrom(primary: Colors.lightGreen),
@@ -63,11 +65,12 @@ class _MyPageScreenState extends State<MyPageScreen> {
           SizedBox(height: 20,),
           SizedBox(height: 15,),
           Container(
-
-            height: 120,
+            margin: EdgeInsets.all(10),
+            height: 80,
             width: 400,
             decoration: BoxDecoration(
               color: beige,
+                borderRadius: BorderRadius.circular(14),
               border: Border.all(
                 color: Colors.white54,
                 style: BorderStyle.solid,
@@ -75,24 +78,52 @@ class _MyPageScreenState extends State<MyPageScreen> {
               )
             ),
 
-            child: Text("식물 이름 :  " + plant_name,),
+            child: Text("식물 이름 :  " + plant_name,
+            style: TextStyle(
+              fontWeight: FontWeight.bold
+            ),),
           ),
 
 
 
           SizedBox(height: 12,),
           Container(
-            height: 120,
+            height: 80,
             width: 400,
             decoration:BoxDecoration(
                 color: beige,
+                borderRadius: BorderRadius.circular(14),
                 border: Border.all(
                     color: Colors.white54,
                     style: BorderStyle.solid,
                     width: 2
                 )
             ),
-            child: Text("내용 :  " + content,),
+            child: Text("소개 :  " + content,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold
+              ),),
+
+          ),
+          SizedBox(height: 9,),
+          Container(
+
+            height: 120,
+            width: 400,
+            decoration:BoxDecoration(
+                color: beige,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                    color: Colors.white54,
+                    style: BorderStyle.solid,
+                    width: 2
+                )
+            ),
+            child: Text("물 주기 간격 :  " + water_cycle + "일",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold
+              ),),
+
           ),
 
 
