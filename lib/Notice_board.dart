@@ -139,7 +139,7 @@ var indexs=0;
 
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                          return information(indexs:index,board_name: board_name[indexs],);
+                          return information(indexs:index,board_name: board_name[indexs-1],);
                         }))
                   },
                     trailing:context.watch<boardData>().userData[index].userImage!=null?Image.file(context.watch<boardData>().userData[index].userImage):Text("")
