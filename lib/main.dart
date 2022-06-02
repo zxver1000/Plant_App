@@ -54,7 +54,7 @@ class recipeData extends ChangeNotifier{
 class boardData extends ChangeNotifier{
 // var userData=[Data("농부농부1", "토마토키우기 꿀팁알려드립니다", "꿀팁꿀팁", 1, File())];
 var userData=[];
-var freeData=[Data2("감자감자", "토마토키우기꿀팁 알려드립니다", "01.토마토키운다", 1,),
+List<Data2> freeData=[Data2("감자감자", "토마토키우기꿀팁 알려드립니다", "01.토마토키운다", 1,),
   Data2("감자키우기", "2022 05 30 감자 성장일기", "01.토마토키운다", 1,)
 
 ];

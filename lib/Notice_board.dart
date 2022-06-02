@@ -20,6 +20,17 @@ class Data{
   Data(this.name,this.title,this.content,this.num,this.userImage);
 }
 
+class Data2{
+  var name;
+  var title;
+  var content;
+  var num;
+  var visit=0;
+  var comment=1;
+  var time;
+  var commentSubject=[];
+  Data2(this.name,this.title,this.content,this.num);
+}
 
 class board extends StatefulWidget  {
   const board({Key? key}) : super(key: key);
@@ -71,6 +82,9 @@ late TabController? tab;
     vsync: this,
   );
 }
+List<Data2> freeData=[Data2("감자감자", "토마토키우기꿀팁 알려드립니다", "01.토마토키운다", 1,),
+  Data2("감자키우기", "2022 05 30 감자 성장일기", "01.토마토키운다", 1,)
+];
 var indexs=0;
   @override
   Widget build(BuildContext context) {
@@ -151,31 +165,15 @@ var indexs=0;
                             // leading: dataset[index].userImage!=null?Image.file(dataset[index].userImage):Text(""),
                             title:Text(context.watch<boardData>().freeData[index].title.toString()),
 
-                            subtitle: Text(context.watch<boardData>().freeData[index].name.toString()+"    "+"조회 "+context.watch<boardData>().userData[index].visit.toString()+"   "+"댓글 "+context.watch<boardData>().userData[index].comment.toString() ),
-                            onTap : ()=>{
-                              print("tab :"+indexs.toString()),
-                              context.read<boardData>().plusVisit(context.read<boardData>().freeData[index]),
-
-
-
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return information(indexs:index,board_name: board_name[indexs],);
-                                  }))
-                            },
-                            trailing:context.watch<boardData>().freeData[index].userImage!=null?Image.file(context.watch<boardData>().freeData[index].userImage):Text(""),
-
                             subtitle: Text(context.watch<boardData>().freeData[index].name.toString()+"    "+"조회 "+context.watch<boardData>().freeData[index].visit.toString()+"   "+"댓글 "+context.watch<boardData>().freeData[index].comment.toString() ),
                             onTap : ()=>{
 
-
                             },
-
 
                           ),
                             Divider(height: 1,color: Colors.black,)],)
                       );
-                    },childCount: context.watch<boardData>().freeData.length),
+                    },childCount: freeData.length),
                   )
                 ]
             )

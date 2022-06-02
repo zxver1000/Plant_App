@@ -15,7 +15,25 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   CollectionReference event = FirebaseFirestore.instance.collection('events');
+/*
+  await event.add({
+  'Date': selectedDay.toString().substring(0,10),
+  'Title': _eventController.text,
+  }).then((value)
+  {
+  print(value.id);
+  if(selectedEvents[selectedDay] != null){
+  selectedEvents[selectedDay]!.add(
+  value.id + '▒' + _eventController.text,
+  );
+  }else{
+  selectedEvents[selectedDay] = [
+  value.id + '▒' + _eventController.text
+  ];
 
+  }
+  });
+  */
   late Map<DateTime, List<String>> selectedEvents;
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.parse(DateTime.now().toString().substring(0,10) + " 00:00:00.000Z");
@@ -247,6 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                           }
                         });
+
                         Navigator.pop(context);
                         _eventController.clear();
                         setState(() {
