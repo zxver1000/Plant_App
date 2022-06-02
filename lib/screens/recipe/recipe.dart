@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:plant_app/main.dart';
+import 'package:plant_app/screens/recipe/recipe_item.dart';
 import 'package:provider/provider.dart';
 
 class recipe extends StatefulWidget {
@@ -67,7 +68,7 @@ class _recipeState extends State<recipe> with SingleTickerProviderStateMixin{
 
                                 context.read<recipeData>().plusVisit(context.read<recipeData>().saladData[index])
                               ,Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return information(board_name:board_name[indexs],index:index);
+                              return information(board_name:board_name[indexs],index:index,item_num:0);
                               }))
                               },
                               trailing:Image(image: AssetImage(context.watch<recipeData>().saladData[index].image),height: 70,width: 70,),
@@ -80,13 +81,14 @@ class _recipeState extends State<recipe> with SingleTickerProviderStateMixin{
               ),
 
               //두번쨰꺼위치!!!
-             moochim(board_name:board_name[indexs])
+
+             moochim(board_name:board_name[indexs],item_num:indexs)
            ,
               boochim(board_name:board_name[indexs])
             ,
-              TextButton(onPressed: (){
-                print("tab ! "+indexs.toString());
-              }, child: Text("12"))],
+
+            jorim(board_name: board_name[indexs],)
+            ],
           ),
 
 
@@ -100,66 +102,83 @@ class _recipeState extends State<recipe> with SingleTickerProviderStateMixin{
 
 
 class information extends StatefulWidget {
-  const information({Key? key,this.board_name,this.index}) : super(key: key);
+  const information({Key? key,this.board_name,this.index,this.item_num}) : super(key: key);
   final board_name;
   final index;
+  final item_num;
   @override
   State<information> createState() => _informationState();
 }
 class _informationState extends State<information> {
 
+
+  var items;
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    if(widget.item_num==0) {items=saladRecipe;}
+    else if(widget.item_num==1) {items=moochimRecipe;}
+    else if(widget.item_num==2) {items=boochimRecipe;}
+    else {items=jorimRecipe;}
+
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("레시피정보"),),
-    body:CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: Padding(
-              padding:EdgeInsets.all(13),
-              child:Text(widget.board_name.toString()+" >")),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(padding: EdgeInsets.all(13),
-          child: Image(image: AssetImage(context.watch<recipeData>().saladData[widget.index].image),height: 200,),)
-        ),
-        SliverToBoxAdapter(
-          child: Divider(height: 1,color: Colors.black,),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-              padding:EdgeInsets.all(13),
-              child:Text("● "+context.read<recipeData>().saladData[widget.index].name.toString())),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-              padding:EdgeInsets.only(left: 13),
-              child:Text("- 조리시간 : "+context.read<recipeData>().saladData[widget.index].cookingtime.toString())),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-              padding:EdgeInsets.only(left: 13),
-              child:Text("- 칼로리 : "+context.read<recipeData>().saladData[widget.index].calorie.toString())),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-              padding:EdgeInsets.all(13),
-              child:Text("- 주재료 : "+context.read<recipeData>().saladData[widget.index].mainingredient.toString())),
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-              padding:EdgeInsets.all(13),
-              child:Text("- 부재료 : "+context.read<recipeData>().saladData[widget.index].subingredient.toString())),
-        ),
+      body:CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Padding(
+                padding:EdgeInsets.all(13),
+                child:Text(widget.board_name.toString()+" >")),
+          ),
+          SliverToBoxAdapter(
+              child: Padding(padding: EdgeInsets.all(13),
 
-        SliverToBoxAdapter(
-          child: Padding(
-              padding:EdgeInsets.only(left: 13),
-              child:Text("- 조리법 : "+context.read<recipeData>().saladData[widget.index].cookingcourse.toString())),
-        ),
+                child: Image(image: AssetImage(items[widget.index].image),height: 200,),)
+          ),
+          SliverToBoxAdapter(
+            child: Divider(height: 1,color: Colors.black,),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+                padding:EdgeInsets.all(13),
+                child:Text("● "+items[widget.index].name.toString())),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+                padding:EdgeInsets.only(left: 13),
+                child:Text("- 조리시간 : "+items[widget.index].cookingtime.toString())),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+                padding:EdgeInsets.only(left: 13),
+                child:Text("- 칼로리 : "+items[widget.index].calorie.toString())),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+                padding:EdgeInsets.all(13),
+                child:Text("- 주재료 : "+items[widget.index].mainingredient.toString())),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+                padding:EdgeInsets.all(13),
+                child:Text("- 부재료 : "+items[widget.index].subingredient.toString())),
+          ),
 
-      ],
-    ),
+          SliverToBoxAdapter(
+            child: Padding(
+                padding:EdgeInsets.only(left: 13),
+                child:Text("- 조리법 : "+items[widget.index].cookingcourse.toString())),
+          ),
+
+        ],
+      ),
 
       bottomNavigationBar: BottomAppBar(
 
@@ -178,8 +197,9 @@ class _informationState extends State<information> {
 
 
 class moochim extends StatefulWidget {
-  const moochim({Key? key,this.board_name}) : super(key: key);
+  const moochim({Key? key,this.board_name,this.item_num}) : super(key: key);
 final board_name;
+final item_num;
   @override
   State<moochim> createState() => _moochimState();
 }
@@ -195,25 +215,25 @@ class _moochimState extends State<moochim> {
               return Padding(
                   padding:EdgeInsets.only(top: 1),
                   child:
+
                   Column(children: <Widget>[ ListTile(
                     isThreeLine: true,
                     // leading: dataset[index].userImage!=null?Image.file(dataset[index].userImage):Text(""),
-                    title:Text(context.watch<recipeData>().saladData[index].name.toString()),
-                    subtitle: Text(context.watch<recipeData>().saladData[index].summary.toString()),
+                    title:Text(moochimRecipe[index].name.toString()),
+                    subtitle: Text(moochimRecipe[index].summary.toString()),
                     onTap : ()=>{
 
-                      context.read<recipeData>().plusVisit(context.read<recipeData>().saladData[index])
-                      /*
-                      ,Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return information(board_name:board_name[indexs],index:index);
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return information(board_name:widget.board_name,index:index,item_num:1);
                       }))
-                      */
+
                     },
-                    trailing:Image(image: AssetImage(context.watch<recipeData>().saladData[index].image),height: 70,width: 70,),
+                    trailing:Image(image: AssetImage(moochimRecipe[index].image),height: 70,width: 70,),
                   ),
                     Divider(height: 1,color: Colors.black,)],)
               );
-            },childCount: context.read<recipeData>().saladData.length),
+            },childCount: moochimRecipe.length),
           )
         ]
     );
@@ -241,22 +261,62 @@ class _boochimState extends State<boochim> {
                   Column(children: <Widget>[ ListTile(
                     isThreeLine: true,
                     // leading: dataset[index].userImage!=null?Image.file(dataset[index].userImage):Text(""),
-                    title:Text(context.watch<recipeData>().saladData[index].name.toString()),
-                    subtitle: Text(context.watch<recipeData>().saladData[index].summary.toString()),
+                    title:Text(boochimRecipe[index].name.toString()),
+                    subtitle: Text(boochimRecipe[index].summary.toString()),
+                    onTap : ()=>{
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return information(board_name:widget.board_name,index:index,item_num:2);
+                      }))
+
+                    },
+                    trailing:Image(image: AssetImage(boochimRecipe[index].image),height: 70,width: 70,),
+                  ),
+                    Divider(height: 1,color: Colors.black,)],)
+              );
+            },childCount: boochimRecipe.length),
+          )
+        ]
+    );
+  }
+}
+
+class jorim extends StatefulWidget {
+  const jorim({Key? key,this.board_name}) : super(key: key);
+ final board_name;
+  @override
+  State<jorim> createState() => _jorimState();
+}
+
+class _jorimState extends State<jorim> {
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+        slivers:<Widget>[
+          SliverFixedExtentList(
+            itemExtent: 100.0,
+            delegate: SliverChildBuilderDelegate((BuildContext context,int index){
+              return Padding(
+                  padding:EdgeInsets.only(top: 1),
+                  child:
+
+                  Column(children: <Widget>[ ListTile(
+                    isThreeLine: true,
+                    // leading: dataset[index].userImage!=null?Image.file(dataset[index].userImage):Text(""),
+                    title:Text(jorimRecipe[index].name.toString()),
+                    subtitle: Text(jorimRecipe[index].summary.toString()),
                     onTap : ()=>{
 
-                      context.read<recipeData>().plusVisit(context.read<recipeData>().saladData[index])
                       /*
                       ,Navigator.push(context, MaterialPageRoute(builder: (context) {
                         return information(board_name:board_name[indexs],index:index);
                       }))
                       */
                     },
-                    trailing:Image(image: AssetImage(context.watch<recipeData>().saladData[index].image),height: 70,width: 70,),
+                    trailing:Image(image: AssetImage(jorimRecipe[index].image),height: 70,width: 70,),
                   ),
                     Divider(height: 1,color: Colors.black,)],)
               );
-            },childCount: context.read<recipeData>().saladData.length),
+            },childCount: jorimRecipe.length),
           )
         ]
     );
