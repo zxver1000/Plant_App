@@ -42,7 +42,7 @@ class _MainScreensState extends State<MainScreens> {
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.white,
         currentIndex:_selectedIndex,
-        backgroundColor: kPrimaryColor,
+        backgroundColor: mainColor,
         onTap: onTaped,
         items: List.generate(
                  navItems.length,
