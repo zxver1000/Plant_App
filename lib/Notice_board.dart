@@ -128,9 +128,10 @@ var indexs=0;
                           return information(indexs:index,board_name: board_name[indexs],);
                         }))
                   },
-                  trailing:context.watch<boardData>().userData[index].userImage!=null?Image.file(context.watch<boardData>().userData[index].userImage):Text(""),
+                    trailing:context.watch<boardData>().userData[index].userImage!=null?Image.file(context.watch<boardData>().userData[index].userImage):Text("")
                 ),
-                  Divider(height: 1,color: Colors.black,)],)
+                  Divider(height: 1,color: Colors.black,)],),
+
             );
           },childCount: context.watch<boardData>().userData.length),
         )
@@ -149,6 +150,7 @@ var indexs=0;
                           Column(children: <Widget>[ ListTile(
                             // leading: dataset[index].userImage!=null?Image.file(dataset[index].userImage):Text(""),
                             title:Text(context.watch<boardData>().freeData[index].title.toString()),
+
                             subtitle: Text(context.watch<boardData>().freeData[index].name.toString()+"    "+"조회 "+context.watch<boardData>().userData[index].visit.toString()+"   "+"댓글 "+context.watch<boardData>().userData[index].comment.toString() ),
                             onTap : ()=>{
                               print("tab :"+indexs.toString()),
@@ -162,6 +164,14 @@ var indexs=0;
                                   }))
                             },
                             trailing:context.watch<boardData>().freeData[index].userImage!=null?Image.file(context.watch<boardData>().freeData[index].userImage):Text(""),
+
+                            subtitle: Text(context.watch<boardData>().freeData[index].name.toString()+"    "+"조회 "+context.watch<boardData>().freeData[index].visit.toString()+"   "+"댓글 "+context.watch<boardData>().freeData[index].comment.toString() ),
+                            onTap : ()=>{
+
+
+                            },
+
+
                           ),
                             Divider(height: 1,color: Colors.black,)],)
                       );
@@ -169,6 +179,8 @@ var indexs=0;
                   )
                 ]
             )
+
+
 
 
           ],
@@ -181,6 +193,7 @@ var indexs=0;
 
   }
 }
+
 
 
 class writing extends StatefulWidget {
@@ -196,7 +209,8 @@ class _State extends State<writing> {
   final controllerTitle=TextEditingController();
   final controllerContent=TextEditingController();
   var userimage;
-
+var id=1;
+var str="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -237,9 +251,10 @@ class _State extends State<writing> {
         mainAxisAlignment: MainAxisAlignment.start,children: [
         Text("")
         ,
-        TextButton(onPressed: (){
 
-        }, child: Text("게시판을선택하세요                                                                   ▼",style: TextStyle(fontSize: 15,color: Colors.black,),)),
+
+
+
 
         TextField(controller: controllerTitle,decoration: InputDecoration(hintText: "제목"),style: TextStyle(fontSize: 20),)
         ,TextField(controller: controllerContent,style: TextStyle(fontSize: 15),maxLines: 10,
