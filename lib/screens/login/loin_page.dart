@@ -18,6 +18,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
   String userName = '';
   String userEmail = '';
   String userPassword = '';
+  bool showSpinner = false;
 
   void _tryValidation(){
     final isValid = _formKey.currentState!.validate();
@@ -43,12 +44,6 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
               left: 0,
               child: Container(
                 height: 300,
-                // decoration: BoxDecoration(
-                //   image: DecorationImage(
-                //     image: AssetImage('assets/images/color_back.png'),
-                //     fit: BoxFit.fill
-                //   ),
-                // ),
                 child: Container(
                   padding: EdgeInsets.only(top:90, left: 20),
                   child: Column(
@@ -218,7 +213,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                 keyboardType: TextInputType.emailAddress,
                                 key: ValueKey(2),
                                 validator: (value){
-                                  if(value!.isEmpty || value.contains('@')){
+                                  if(value!.isEmpty || !value.contains('@')){
                                     return 'Please enter a valid email address';
                                   }
                                   return null;
@@ -478,18 +473,6 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                             );
                             if (newUser.user != null) {
                               print(newUser.user);
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) {
-                              //       return BottomNavi();
-                              //     },
-                              //   ),
-                              // );
-                              // setState(() {
-                              //   showSpinner = false;
-                              // });
-                              
                             }
                           }catch(e){
                             print(e);

@@ -150,11 +150,27 @@ var indexs=0;
                           Column(children: <Widget>[ ListTile(
                             // leading: dataset[index].userImage!=null?Image.file(dataset[index].userImage):Text(""),
                             title:Text(context.watch<boardData>().freeData[index].title.toString()),
+
+                            subtitle: Text(context.watch<boardData>().freeData[index].name.toString()+"    "+"조회 "+context.watch<boardData>().userData[index].visit.toString()+"   "+"댓글 "+context.watch<boardData>().userData[index].comment.toString() ),
+                            onTap : ()=>{
+                              print("tab :"+indexs.toString()),
+                              context.read<boardData>().plusVisit(context.read<boardData>().freeData[index]),
+
+
+
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return information(indexs:index,board_name: board_name[indexs],);
+                                  }))
+                            },
+                            trailing:context.watch<boardData>().freeData[index].userImage!=null?Image.file(context.watch<boardData>().freeData[index].userImage):Text(""),
+
                             subtitle: Text(context.watch<boardData>().freeData[index].name.toString()+"    "+"조회 "+context.watch<boardData>().freeData[index].visit.toString()+"   "+"댓글 "+context.watch<boardData>().freeData[index].comment.toString() ),
                             onTap : ()=>{
 
 
                             },
+
 
                           ),
                             Divider(height: 1,color: Colors.black,)],)
@@ -163,6 +179,10 @@ var indexs=0;
                   )
                 ]
             )
+
+
+
+
           ],
         )
 
