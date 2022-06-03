@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/main.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter/material.dart';
 class Data{
   var name;
   var title;
@@ -141,7 +141,7 @@ var indexs=0;
 
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                          return information(indexs:index,board_name: board_name[indexs-1],);
+                          return information(indexs:index,board_name: board_name[0],);
                         }))
                   },
                     trailing:context.watch<boardData>().userData[index].userImage!=null?Image.file(context.watch<boardData>().userData[index].userImage):Text("")
@@ -226,7 +226,7 @@ var str="";
           if(userimage!=null) {
             print("hihi");
             context.read<boardData>().addData(
-                "작성자", controllerTitle.text, controllerContent.text,1,userimage);
+                "김건국", controllerTitle.text, controllerContent.text,1,userimage);
 
 
 

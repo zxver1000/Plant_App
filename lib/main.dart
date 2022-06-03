@@ -49,21 +49,33 @@ class recipeData extends ChangeNotifier{
   }
 
 }
-class plant_data{
+class plants{
 
   var plant_name = " ";
   var content = " ";
   var water_cycle = " ";
-
-  plant_data(this.plant_name,this.content,this.water_cycle);
+  var water_checking=0;
+  var data=[];
+  plants(this.plant_name,this.content,this.water_cycle);
 }
 
 class plant extends ChangeNotifier{
 
   var plant_datas=[];
-  void add_plant_data(){
+  void addPlant(var data){
 
+    plant_datas=[...plant_datas,data];
     notifyListeners();
+   }
+   void changechecking(var index) {
+     if (plant_datas[index].water_checking == 1) {
+       plant_datas[index].water_checking = 0;
+     }
+     else
+       {
+         plant_datas[index].water_checking = 1;
+       }
+     notifyListeners();
    }
 
 }
@@ -96,11 +108,8 @@ addData(var name,var title,var content,var num1,var image)
   var now=DateTime.now();
   String formatDate = DateFormat('yy/MM/dd - HH:mm:ss').format(now);
   newOne.time=formatDate;
-  if(num1==1)
-  {
-  userData=[newOne,...userData];
-  }
 
+  userData=[newOne,...userData];
   notifyListeners();
 }
 

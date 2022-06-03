@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/category_2/model/category_model.dart';
 import 'package:plant_app/screens/category_2/plant_lists.dart';
+import 'package:plant_app/notification.dart';
 
 class MakePlant extends StatefulWidget {
   const MakePlant({Key? key}) : super(key: key);
@@ -114,10 +115,11 @@ class _MakePlantState extends State<MakePlant> {
 
                     "plant_name":plantName,
                     "content":content,
-                    "water_cycle":water_cycle
+                    "water_cycle":water_cycle,
+                    "water_checking":0,
 
                   });
-
+                  showNotification();
                   Navigator.pop(context);
                 },
                 child: Text('업로드 하기')

@@ -6,7 +6,7 @@ import 'package:plant_app/main.dart';
 import 'package:plant_app/screens/category/category_screen.dart';
 import 'package:plant_app/screens/category_2/category.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
-import 'package:plant_app/screens/mypage/my_page_screen.dart';
+import 'package:plant_app/screens/mypage/components/my_page_screen.dart';
 import 'package:plant_app/screens/recommend/recommend_screen.dart';
 import 'package:plant_app/screens/search/search_screen.dart';
 import 'package:plant_app/models/nav_item.dart';
@@ -14,15 +14,10 @@ import 'package:plant_app/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_app/Notice_board.dart';
 import 'package:plant_app/screens/recipe/recipe.dart';
+import 'package:plant_app/notification.dart';
+import 'package:provider/provider.dart';
 
-class plant_data{
 
-  var plant_name = " ";
-  var content = " ";
-  var water_cycle = " ";
-
-  plant_data(this.plant_name,this.content,this.water_cycle);
-}
 
 class MainScreens extends StatefulWidget {
   static String routeName = "/main_screens";
@@ -39,6 +34,16 @@ class _MainScreensState extends State<MainScreens> {
   int _selectedIndex = 0;
   var datas=[];
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    initNotification();
+    print("notification 인잇");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +92,7 @@ class _MainScreensState extends State<MainScreens> {
   void datadd () async{
     var result = await firestore.collection('식물등록').get();
     for(var data in result.docs) {
-      var s = plant_data(data['plant_name'], data['content'], data['water_cycle']);
+      var s = plants(data['plant_name'], data['content'], data['water_cycle']);
       if((datas.singleWhere((it) => it.plant_name==s.plant_name,
       orElse: ()=>null))!=null){
       }else
@@ -95,6 +100,8 @@ class _MainScreensState extends State<MainScreens> {
           setState(() {
             datas = [...datas, s];
           });
+
+          context.read<plant>().addPlant(s);
         }
 
     }
@@ -107,6 +114,7 @@ class _MainScreensState extends State<MainScreens> {
       if(index==4)
         {
           datadd();
+
         }
         }
       );
