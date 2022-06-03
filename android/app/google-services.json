@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "957717808808",
+    "project_id": "flutterhci-ddd47",
+    "storage_bucket": "flutterhci-ddd47.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957717808808:android:58bb100629be44ddf5a49d",
+        "android_client_info": {
+          "package_name": "com.example.hci"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957717808808-dqa1m8e9s43oscf44evmgr9genrk8vn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcPjwbuejvrP26sZWgJLKak9DS4Zwr8xQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957717808808-dqa1m8e9s43oscf44evmgr9genrk8vn8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "957717808808-pul9j1qplluifhk81il7d903hutvgd8u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.hci"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
