@@ -110,7 +110,7 @@ class _MakePlantState extends State<MakePlant> {
             ElevatedButton(
                 onPressed: (){
 
-                  fireStore.collection('식물등록').doc('user1').set({
+                  fireStore.collection('식물등록').add({
 
                     "plant_name":plantName,
                     "content":content,

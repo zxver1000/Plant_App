@@ -49,7 +49,24 @@ class recipeData extends ChangeNotifier{
   }
 
 }
+class plant_data{
 
+  var plant_name = " ";
+  var content = " ";
+  var water_cycle = " ";
+
+  plant_data(this.plant_name,this.content,this.water_cycle);
+}
+
+class plant extends ChangeNotifier{
+
+  var plant_datas=[];
+  void add_plant_data(){
+
+    notifyListeners();
+   }
+
+}
 
 class boardData extends ChangeNotifier{
 // var userData=[Data("농부농부1", "토마토키우기 꿀팁알려드립니다", "꿀팁꿀팁", 1, File())];
@@ -103,7 +120,8 @@ void main() async {
   runApp(
       MultiProvider(providers: [
         ChangeNotifierProvider(create: (c) => boardData()),
-        ChangeNotifierProvider(create: (c) => recipeData())
+        ChangeNotifierProvider(create: (c) => recipeData()),
+        ChangeNotifierProvider(create: (c) => plant()),
       ],
         child: PlantApp(),)
   );

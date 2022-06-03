@@ -111,7 +111,7 @@ var indexs=0;
 
       body: Scaffold(
         appBar: AppBar(
-          backgroundColor: mainColor,
+          backgroundColor: Colors.white,
           title:TabBar(controller: tab,onTap:(i){
             indexs=i;
           },
@@ -227,6 +227,7 @@ var str="";
             print("hihi");
             context.read<boardData>().addData(
                 "작성자", controllerTitle.text, controllerContent.text,1,userimage);
+
 
 
     print(context.read<boardData>().userData[0].title);

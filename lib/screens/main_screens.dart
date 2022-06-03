@@ -15,6 +15,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_app/Notice_board.dart';
 import 'package:plant_app/screens/recipe/recipe.dart';
 
+class plant_data{
+
+  var plant_name = " ";
+  var content = " ";
+  var water_cycle = " ";
+
+  plant_data(this.plant_name,this.content,this.water_cycle);
+}
+
 class MainScreens extends StatefulWidget {
   static String routeName = "/main_screens";
 
@@ -24,9 +33,12 @@ class MainScreens extends StatefulWidget {
   State<MainScreens> createState() => _MainScreensState();
 }
 
+
+
 class _MainScreensState extends State<MainScreens> {
   int _selectedIndex = 0;
-
+  var datas=[];
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +49,7 @@ class _MainScreensState extends State<MainScreens> {
           recipe(),
           Category(),
           board(),
-          MyPageScreen()
+          MyPageScreen(data:datas)
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -71,10 +83,33 @@ class _MainScreensState extends State<MainScreens> {
     });
   }
 
+
+  void datadd () async{
+    var result = await firestore.collection('식물등록').get();
+    for(var data in result.docs) {
+      var s = plant_data(data['plant_name'], data['content'], data['water_cycle']);
+      if((datas.singleWhere((it) => it.plant_name==s.plant_name,
+      orElse: ()=>null))!=null){
+      }else
+        {
+          setState(() {
+            datas = [...datas, s];
+          });
+        }
+
+    }
+  }
+
+
   void onTaped(index) {
     setState((){
       _selectedIndex = index;
-    });
+      if(index==4)
+        {
+          datadd();
+        }
+        }
+      );
   }
 
 
